@@ -29,7 +29,8 @@ function App() {
     <div className='app'>
       <div className='sidebar'>
         <FriendList/>
-        <Forms/>
+        <FormsFriend/>
+        <Button>Add Friend</Button>
       </div>
     </div>
   )
@@ -68,13 +69,26 @@ function Friend({friend}){
           You and {friend.name} are even
         </p>
       )}
-      <button className='button'>Select</button>
+      <Button>Select</Button>
     </li>
   )
 }
 
-function Forms(){
-  return(null)
+function Button({children}){
+  <button className='button'>{children}</button>
+
+}
+
+function FormsFriend(){
+  return(
+    <form className="form-add-friend">
+      <label> Friend name</label>
+      <imput type="text"/>
+      <label> Image URL</label>
+      <input type="text"/>
+      <Button>Add</Button>
+    </form>
+  )
 }
 
 
