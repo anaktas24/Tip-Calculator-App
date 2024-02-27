@@ -44,7 +44,10 @@ function App() {
 
 
   function handleSelection(friend){
-    setSelectedFriend(friend)
+    // setSelectedFriend(friend)
+    setSelectedFriend((current)=>
+      current?.id === friend.id ? null : friend)
+      setShowAddFriend(false)
   }
   return (
     <div className='app'>
@@ -63,12 +66,16 @@ function App() {
   )
 }
 
-function FriendList({friends}){
+function FriendList({friends,onSelection,selectedFriend}){
 
   return(
     <ul>
       {friends.map((friend)=>(
-        <Friend friend={friend} key={friend.id} onSelection={onSelection}/>
+        <Friend
+          friend={friend}
+          key={friend.id}
+          selectedFriend={selectedFriend}
+          onSelection={onSelection}/>
       ))}
     </ul>
 
@@ -76,8 +83,9 @@ function FriendList({friends}){
 }
 
 function Friend({friend,onSelection}){
+  const isSelected = selectedFriend?.id === friend.id
   return (
-    <li>
+    <li className={isSelected ? "selected" : ""}>
       <img src={friend.image} alt={friend.name}/>
       <h3>{friend.name}</h3>
 
@@ -96,7 +104,7 @@ function Friend({friend,onSelection}){
           You and {friend.name} are even
         </p>
       )}
-      <Button onClick={()=> onSelection(friend)}>Select</Button>
+      <Button onClick={()=> onSelection(friend)}>{isSelected ? "Close" : "Select"}</Button>
     </li>
   )
 }
